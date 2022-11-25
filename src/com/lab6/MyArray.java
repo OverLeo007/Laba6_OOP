@@ -268,7 +268,6 @@ public class MyArray<T> {
       return;
     }
     for (int i = size - 1; i > index - startIndex; i --) {
-      System.out.printf("%d %d\n", i, i + elSize);
       data[i + elSize] =  data[i];
       data[i] = null;
     }

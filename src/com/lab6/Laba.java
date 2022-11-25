@@ -3,10 +3,12 @@ package com.lab6;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.Objects;
-import java.util.Scanner;
 
+
+/**
+ * Класс для запуска программы
+ */
 public class Laba {
 
 
@@ -18,6 +20,9 @@ public class Laba {
 
 }
 
+/**
+ * Интерфейс, реализующий нумерацию вариантов выбора для switch()
+ */
 interface menuEnum {
 
   int MAKE_INT_ARRAY = 1,
@@ -39,15 +44,32 @@ interface menuEnum {
 }
 
 
+/**
+ * Основной класс интерфейса
+ */
 class UI implements menuEnum {
-
+  /**
+   * Поток вывода, поддерживающий русские символы
+   */
   private final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-  private final Scanner in = new Scanner(System.in);
+  /**
+   * Экземпляр класса содержащего методы ввода разных типов
+   */
   private final Inputer inp = new Inputer();
+
+  /**
+   * Массив со строками
+   */
   private MyArray<String> strArray;
+  /**
+   * Массив с числами
+   */
   private MyArray<Integer> intArray;
 
 
+  /**
+   * Метод основного меню работы
+   */
   public void menu() {
 
     int choice;
@@ -73,17 +95,11 @@ class UI implements menuEnum {
     } while (choice != EXIT);
   }
 
+
+  /**
+   * Метод установки значений для массива чисел
+   */
   private void setIntArray() {
-    String answ = null;
-    while (!Objects.equals(answ, "y") && !Objects.equals(answ, "n")) {
-      out.println("Создаем пустой массив? y/n");
-      answ = inp.getString();
-    }
-    if (Objects.equals(answ, "y")) {
-      intArray = new MyArray<>();
-      arrayMenu("int");
-      return;
-    }
     while (true) {
       out.println("Введите числа через пробел");
       try {
@@ -97,17 +113,10 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Метод установки значений для массива строк
+   */
   private void setStringArray() {
-    String answ = null;
-    while (!Objects.equals(answ, "y") && !Objects.equals(answ, "n")) {
-      out.println("Создаем пустой массив? y/n");
-      answ = inp.getString();
-    }
-    if (Objects.equals(answ, "y")) {
-      strArray = new MyArray<>();
-      arrayMenu("str");
-      return;
-    }
     while (true) {
       out.println("Введите строки через пробел");
       try {
@@ -122,6 +131,11 @@ class UI implements menuEnum {
 
   }
 
+  /**
+   * Меню взаимодействий с массивом
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void arrayMenu(String arrType) {
     int choice;
 
@@ -163,6 +177,11 @@ class UI implements menuEnum {
 
   }
 
+  /**
+   * Метод вывода массива на экран
+   *
+   * @param arrType  Тип массива ("str" или "int")
+   */
   private void printArray(String arrType) {
     if (Objects.equals(arrType, "str")) {
       out.println(strArray);
@@ -171,6 +190,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Метод получения значения из массива и вывода его на экран
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void getByIndex(String arrType) {
     out.println("Введите индекс:");
     int index = inp.getInt();
@@ -185,6 +209,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Метод установки значения введенного из консоли в массив
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void setByIndex(String arrType) {
     out.println("Введите индекс:");
     int index = inp.getInt();
@@ -206,6 +235,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Изменение начального индекса массива
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void changeStartIndex(String arrType) {
     out.println("Введите индекс:");
     int index = inp.getInt();
@@ -220,6 +254,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Изменение конечного индекса массива
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void changeEndIndex(String arrType) {
     out.println("Введите индекс:");
     int index = inp.getInt();
@@ -234,6 +273,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Инвертирование массива
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void invertArray(String arrType) {
     if (Objects.equals(arrType, "str")) {
       strArray.invert();
@@ -242,6 +286,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Конкатенация двух массивов
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void concatArray(String arrType) {
     if (Objects.equals(arrType, "str")) {
       while (true) {
@@ -268,6 +317,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Метод поиска элемента в массиве
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void findItem(String arrType) {
     if (Objects.equals(arrType, "str")) {
       out.println(strArray.find(inp.getString()));
@@ -276,6 +330,11 @@ class UI implements menuEnum {
     }
   }
 
+  /**
+   * Метод вставки последовательности после элемента с индексом
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void insertSequence(String arrType) {
     out.println("ВВедите индекс");
     int index = inp.getInt();
@@ -310,6 +369,11 @@ class UI implements menuEnum {
 
   }
 
+  /**
+   * Метод вывода массива с заданными границами
+   *
+   * @param arrType Тип массива ("str" или "int")
+   */
   private void printBoundedArray(String arrType) {
     out.println("Введите левую границу");
     int left = inp.getInt();
